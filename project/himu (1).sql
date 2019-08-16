@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 16, 2019 at 08:35 AM
+-- Generation Time: Aug 16, 2019 at 11:42 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -21,6 +21,105 @@ SET time_zone = "+00:00";
 --
 -- Database: `himu`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `username`, `password`) VALUES
+(1, 'tarekosama1998', 'tarekosama');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blog`
+--
+
+DROP TABLE IF EXISTS `blog`;
+CREATE TABLE IF NOT EXISTS `blog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL DEFAULT '',
+  `description` text NOT NULL,
+  `img` varchar(250) NOT NULL DEFAULT '',
+  `team_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `team_id` (`team_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client`
+--
+
+DROP TABLE IF EXISTS `client`;
+CREATE TABLE IF NOT EXISTS `client` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL DEFAULT '',
+  `description` int(11) NOT NULL,
+  `img` varchar(150) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact_us`
+--
+
+DROP TABLE IF EXISTS `contact_us`;
+CREATE TABLE IF NOT EXISTS `contact_us` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL DEFAULT '',
+  `email` varchar(150) NOT NULL DEFAULT '',
+  `massage` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `portfolio`
+--
+
+DROP TABLE IF EXISTS `portfolio`;
+CREATE TABLE IF NOT EXISTS `portfolio` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL DEFAULT '',
+  `description` varchar(150) NOT NULL DEFAULT '',
+  `img` varchar(150) NOT NULL DEFAULT '',
+  `catg_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `catg_id` (`catg_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -140,6 +239,29 @@ CREATE TABLE IF NOT EXISTS `with_us` (
   `icon` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `blog`
+--
+ALTER TABLE `blog`
+  ADD CONSTRAINT `blog_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`);
+
+--
+-- Constraints for table `portfolio`
+--
+ALTER TABLE `portfolio`
+  ADD CONSTRAINT `portfolio_ibfk_1` FOREIGN KEY (`catg_id`) REFERENCES `category` (`id`);
+
+--
+-- Constraints for table `team_social`
+--
+ALTER TABLE `team_social`
+  ADD CONSTRAINT `team_social_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`id`),
+  ADD CONSTRAINT `team_social_ibfk_2` FOREIGN KEY (`social_id`) REFERENCES `social_media` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
