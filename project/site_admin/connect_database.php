@@ -2,7 +2,7 @@
 
 $s_name   = "localhost";
 $u_name   = "root";
-$pass     = "1234";
+$pass     = "";
 $db_name  = "himu";
 
 

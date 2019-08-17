@@ -23,9 +23,9 @@
 				<div class="ads ">
 					<h3>Admin Panal</h3>
 				</div>
-				<form action="control.php" method="POST">
+				<form action="#" method="POST">
 					<div class="form-group">
-						<input type="text" name="username" id="username" placeholder="username" class="form-control">
+						<input type="text" name="username" id="name" placeholder="username" class="form-control">
 					</div>
 					<div class="form-group">
 						<input type="password" name="password" id="password" placeholder="password" class="form-control">
@@ -35,9 +35,43 @@
 						<input type="submit" id="login" class="form-control btn btn-info" value="Login Now">
 					</div>
 					
+					<div id="error">
+						
+					</div>
 				</form>
 			</div>
 		</div>
 	</header>
+
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src = "js/bootstrap.min.js"></script>
+	<script type = "text/Javascript">
+		$(document).on('click','#login',function(e){
+			var name = $('#name').val();
+			var password = $('#password').val();
+			
+			$.ajax({
+				url:"login.php",
+				type:"post",
+				data:{username:name,password:password},
+				success : function(data)
+				{
+					alert(data);
+					if(data=="success"){
+						console.log(name);
+						console.log(password);
+						window.location.assign("control.php");
+					}
+					else{
+						$('#error').html("invalid username or password");
+					}
+				}
+
+			});
+			e.preventDefault();
+		});
+
+
+	</script>
 </body>
 </html>

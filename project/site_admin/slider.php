@@ -88,6 +88,11 @@
 			</div>
 		</div>	
 		<!-- end modal edit -->
+		<?php
+			require 'connect_database.php';
+			$sql = "select * from slider";
+			$result = $conn->query($sql);
+		?>
 		
 		<div class="col-lg-10 col-md-offset-2">	
 			<table class="table ">
@@ -102,16 +107,18 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			 
-			    <tr>
-			      <th scope="row"></th>
-			      <td></td>
-			      <td></td>
-			      <td></td>
+			 	<?php 
+			 		foreach ($result as $key => $value) { ?>
+			 			
+			 	<tr>
+			      <th scope="row"> <?php echo $key+1;?></th>
+			      <td>  <?php echo $value['title'];?></td>
+			      <td>  <?php echo $value['description'];?></td>
+			      <td> <img width="50" height="50" src="../course_site/images/slider/<?php echo $value['img']; ?>"></td>
 				  <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#Edit" data-whatever="@mdo"  class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button></td>
 				  <td><button id="delete" class="btn btn-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></button></td>
 			    </tr>
-			
+			   <?php }?>
 			</table>
 		</div>
 	</div>

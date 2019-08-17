@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['name'])){
+
+?>
+
+
 <header>
 		<div class="navbar navbar-inverse navbar-fixed-left col-lg-3">
 		  <p class="text-center"> Welcome <span>Admin</span>  </p>
@@ -17,3 +24,8 @@
 		  </ul>
 		</div>
 	</header>
+	<?php 
+	} else{ header("Location:index.php");
+	}
+
+	?>
